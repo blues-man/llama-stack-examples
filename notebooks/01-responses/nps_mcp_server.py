@@ -23,6 +23,8 @@ Rate Limits: 1,000 requests per hour per API key
 from typing import Optional
 import httpx
 from fastmcp import FastMCP
+from fastmcp.server.dependencies import get_http_request
+from starlette.requests import Request
 import os
 import argparse
 import json
@@ -110,7 +112,7 @@ async def search_parks(
     state_code: Optional[str] = None, 
     park_code: Optional[str] = None,
     query: Optional[str] = None,
-    limit: int = 10
+    limit: int = 10,
 ) -> str:
     """
     Search for national parks by state, park code, or query string.
@@ -126,6 +128,11 @@ async def search_parks(
     """
     # Log input parameters
     get_logger().debug(f"search_parks called with inputs: state_code={state_code}, park_code={park_code}, query={query}, limit={limit}")
+
+    request: Request = get_http_request()
+    headers = dict(request.headers)
+    if headers:
+        get_logger().debug(f"tool call headers: {mask_sensitive_headers(headers)}")
     
     try:
         api_key = get_api_key()
