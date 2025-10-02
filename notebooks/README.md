@@ -4,7 +4,7 @@ This directory contains notebooks and example code for demonstrating various Lla
 
 ## Current Examples
 
-### [01-responses/](./01-responses/)
+### [01-responses/](01-responses/)
 
 An introduction to the Llama Stack Responses API, including:
 
