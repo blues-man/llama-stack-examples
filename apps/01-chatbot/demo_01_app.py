@@ -19,20 +19,20 @@ async def set_starters():
     print("📱 UI: Setting up starter suggestions...")
     starters = [
         cl.Starter(
-            label="What are the key ideas?",
-            message="What are the key ideas about doing great work according to Paul Graham?",
+            label="What is Summit Connect Helsinki?",
+            message="What is the Summit Connect Helsinki conference",
         ),
         cl.Starter(
-            label="How to find what to work on?",
-            message="According to Paul Graham, how do you find what to work on?",
+            label="What is the agenda?",
+            message="What is the agenda of Summit Connect Helsinki?",
         ),
         cl.Starter(
-            label="Role of curiosity?",
-            message="What does Paul Graham say about the role of curiosity in doing great work?",
+            label="What are the keynotes?",
+            message="What are the keynotes of Summit Connect Helsinki?",
         ),
         cl.Starter(
-            label="Dealing with setbacks?",
-            message="What advice does Paul Graham give about dealing with setbacks and failures?",
+            label="Which sessions has Natale?",
+            message="Which sessions has Natale Vinto at Summit Connect Helsinki?",
         ),
     ]
     print(f"✅ UI: {len(starters)} starter suggestions configured")

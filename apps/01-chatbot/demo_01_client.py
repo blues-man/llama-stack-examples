@@ -22,7 +22,12 @@ models = client.models.list()
 # Select the first LLM and first embedding models
 if not model_id:
     model_id = next(m for m in models if m.model_type == "llm").identifier
-embedding_model = next(m for m in models if m.model_type == "embedding")
+
+# Prefer ollama embedding model over sentence-transformers (which requires HuggingFace access)
+embedding_model = next(
+    (m for m in models if m.model_type == "embedding" and m.provider_id == "ollama"),
+    next(m for m in models if m.model_type == "embedding")  # fallback to any embedding model
+)
 embedding_model_id = embedding_model.identifier
 embedding_dimension = embedding_model.metadata["embedding_dimension"]
 
@@ -40,12 +45,12 @@ _ = client.vector_dbs.register(
 print("✅ Vector database ready")
 
 # Load document
-source = "https://www.paulgraham.com/greatwork.html"
+source = "https://gist.githubusercontent.com/blues-man/04b208b6ecc525f5a410c6c37e6ea548/raw/b47ae4d33b9b687ccc79396d65450dc01f5f6689/summit_connect_helsinki_schedule.txt"
 print("rag_tool> Ingesting document:", source)
 document = RAGDocument(
     document_id="document_1",
     content=source,
-    mime_type="text/html",
+    mime_type="plain/text",
     metadata={},
 )
 
